@@ -8,27 +8,24 @@ const rules = {
   spock: ["scissors", "rock"]
 };
 
-const jugar = (userChoise) => {
-  function getRandomNumber(minimo, maximo) {
-    return Math.floor(Math.random() * (maximo - minimo + 1)) + minimo;
+const randomChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+const play = (userChoice) => {
+  if (!choices.includes(userChoice)) {
+    console.log(`Invalid choice: "${userChoice}". Use: ${choices.join(", ")}`);
+    return;
   }
-  const computerChoise = getRandomNumber(0, 4)
-  const eleccion = choises[computerChoise];
 
-  console.log("User chose:", userChoise);
-  console.log("Computer chose:", eleccion);
+  const computerChoice = randomChoice(choices);
 
-    if (userChoise === eleccion){
-      console.log("Draw");
-    }
-    else if (rules[userChoise].includes(eleccion)){
-      console.log("You win!");
-    }
-    else {
-      console.log("Computer Wins!");
-    }
-}
+  console.log("User chose:", userChoice);
+  console.log("Computer chose:", computerChoice);
 
+  if (userChoice === computerChoice) return console.log("Draw");
 
-jugar("lizard");
+  const userWins = rules[userChoice].includes(computerChoice);
+  console.log(userWins ? "You win!" : "Computer wins!");
+};
+
+play("lizard");
 
